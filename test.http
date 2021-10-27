@@ -1,10 +1,11 @@
 ### Create product
 POST http://localhost:8080/api/products
+X-Api-Key: SECRET
 Content-Type: application/json
 Accept: application/json
 
 {
-  "id" : "A0010",
+  "id" : "A0011",
   "name" : "Mac Book Pro 15",
   "price" : 30000000,
   "quantity" : 10
@@ -12,6 +13,7 @@ Accept: application/json
 
 ### validation create product error
 POST http://localhost:8080/api/products
+X-Api-Key: SECRET
 Content-Type: application/json
 Accept: application/json
 
@@ -25,10 +27,12 @@ Accept: application/json
 
 ### get product
 GET http://localhost:8080/api/products/A0010
+X-Api-Key: SECRET
 Accept: application/json
 
 ### get product not found
 GET http://localhost:8080/api/products/SALAH
+X-Api-Key: SECRET
 Accept: application/json
 
 ### Update product
@@ -76,3 +80,18 @@ DELETE http://localhost:8080/api/products/A0010
 X-Api-Key: SECRET
 Accept: application/json
 
+###List Products
+
+GET http://localhost:8080/api/products
+X-Api-Key: SECRET
+Accept: application/json
+
+###list product with size
+GET http://localhost:8080/api/products?size=5
+X-Api-Key: SECRET
+Accept: application/json
+
+###list product with size and page
+GET http://localhost:8080/api/products?size=5&page=1
+X-Api-Key: SECRET
+Accept: application/json

@@ -1,6 +1,7 @@
 package com.noranekoit.swarung.api.controller
 
 import com.noranekoit.swarung.api.error.NotFoundException
+import com.noranekoit.swarung.api.error.UnauthorizedException
 import com.noranekoit.swarung.api.model.WebResponse
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -26,6 +27,15 @@ class ErrorController {
             code= 404,
             status = "Not Found",
             data = "Not Found"
+        )
+    }
+
+    @ExceptionHandler(value = [UnauthorizedException::class])
+    fun notFound(unauthorizedException: UnauthorizedException) : WebResponse<String>{
+        return WebResponse(
+            code= 401,
+            status = "UNAUTHORIZED",
+            data = "Please put your X-Api-Key"
         )
     }
 }

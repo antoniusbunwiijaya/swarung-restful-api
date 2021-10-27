@@ -1,9 +1,20 @@
-#API SPEC
-## Create Product 
+# API SPEC
 - package entity --> representasi tabel database
 - model(classnya) dari service(interface)
-- repository --> untuk update,delete
-- controller
+- repository --> untuk akses ke database update,delete
+- controller --> bikin api
+- config --> bikin secret key
+- auth --> untuk bikin interseptor misal salah key akan direject
+
+
+## Authentication
+All API must use this authentication 
+
+Request: 
+- Header :
+  - X-Api-Key : "Your Secret api key"
+## Create Product 
+
 
 Request : 
 - Method : POST  
@@ -25,7 +36,7 @@ Response :
 ```json 
 {
     "code" : "number",
-    "status" : "srting",
+    "status" : "string",
     "data" : {
           "id" : "string,unique",
           "name" : "string",
@@ -50,7 +61,7 @@ Response :
 ```json 
 {
     "code" : "number",
-    "status" : "srting",
+    "status" : "string",
     "data" : {
           "id" : "string,unique",
           "name" : "string",
@@ -82,7 +93,7 @@ Response :
 ```json 
 {
     "code" : "number",
-    "status" : "srting",
+    "status" : "string",
     "data" : {
           "id" : "string,unique",
           "name" : "string",
@@ -143,7 +154,7 @@ Response :
 ```json 
 {
     "code" : "number",
-    "status" : "srting",
+    "status" : "string",
     
 }
 ```

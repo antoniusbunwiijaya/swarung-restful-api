@@ -1,9 +1,6 @@
 package com.noranekoit.swarung.api.controller
 
-import com.noranekoit.swarung.api.model.CreateProductRequest
-import com.noranekoit.swarung.api.model.ProductResponse
-import com.noranekoit.swarung.api.model.UpdateProductRequest
-import com.noranekoit.swarung.api.model.WebResponse
+import com.noranekoit.swarung.api.model.*
 import com.noranekoit.swarung.api.service.ProductService
 import org.springframework.web.bind.annotation.*
 
@@ -68,6 +65,20 @@ class ProductController(val productService: ProductService) {
             code = 200,
             status = "OK",
             data = id
+        )
+    }
+    @GetMapping(
+        value = ["/api/products"],
+        produces = ["application/json"]
+    )
+    fun listProducts(@RequestParam(value = "size", defaultValue = "10") size : Int,
+                     @RequestParam(value = "page",defaultValue = "0") page:Int) : WebResponse<List<ProductResponse>>{
+        val request = ListProductRequest(page = page, size = size)
+        val response = productService.list(request)
+        return WebResponse(
+            code = 200,
+            status = "OK",
+            data = response
         )
     }
 }

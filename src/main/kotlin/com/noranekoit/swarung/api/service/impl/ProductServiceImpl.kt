@@ -3,14 +3,17 @@ package com.noranekoit.swarung.api.service.impl
 import com.noranekoit.swarung.api.entity.Product
 import com.noranekoit.swarung.api.error.NotFoundException
 import com.noranekoit.swarung.api.model.CreateProductRequest
+import com.noranekoit.swarung.api.model.ListProductRequest
 import com.noranekoit.swarung.api.model.ProductResponse
 import com.noranekoit.swarung.api.model.UpdateProductRequest
 import com.noranekoit.swarung.api.repository.ProductRepository
 import com.noranekoit.swarung.api.service.ProductService
 import com.noranekoit.swarung.api.validation.ValidationUtil
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.stream.Collectors
 
 //dependecy injection productRepository
 @Service
@@ -65,6 +68,12 @@ class ProductServiceImpl(val productRepository: ProductRepository,
     override fun delete(id: String) {
         val product = findProductByIdorThrowNotFound(id)
         productRepository.delete(product)
+    }
+
+    override fun list(listProductRequest: ListProductRequest): List<ProductResponse> {
+        val page = productRepository.findAll(PageRequest.of(listProductRequest.page,listProductRequest.size))
+        val products : List<Product> = page.get().collect(Collectors.toList())
+        return products.map { convertProductToProductResponse(it) }
     }
 
     private fun findProductByIdorThrowNotFound(id: String): Product{
